@@ -5,7 +5,7 @@ import {ActionType} from 'redux-promise-middleware';
 
 import {setAssets, setError, SetFavoriteResponse, FetchQuotesResponse} from 'actions/quotes';
 import {setListCurrency} from 'actions/converter';
-import {getAssets} from 'selectors/qoutes';
+import {getAssets} from 'selectors/quotes';
 import {QUOTES} from 'constants/actions/quotes';
 import {getCollectedCurrency, getModifiedAssets, changeIsFavoriteStatus} from './utils';
 

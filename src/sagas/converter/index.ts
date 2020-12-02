@@ -1,7 +1,7 @@
 import {SagaIterator} from 'redux-saga';
 import {put, takeEvery, select, call} from 'redux-saga/effects';
 
-import {getCurrencyWithQuote} from 'selectors/qoutes';
+import {getCurrencyWithQuote} from 'selectors/quotes';
 import {setTotal, setError, CalculateExchangeResponse} from 'actions/converter';
 import {CONVERTER} from 'constants/actions/converter';
 
