@@ -1,0 +1,14 @@
+{
+    "presets": ["next/babel"],
+    "env": {
+      "test": {
+        "plugins": [
+          ["astroturf/plugin", {
+              "allowGlobal": true,
+              "writeFiles": false
+          }]
+        ]
+      }
+    }
+  }
+  

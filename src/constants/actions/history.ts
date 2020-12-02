@@ -1,0 +1,5 @@
+export const HISTORY = {
+    FETCH: 'HISTORY@FETCH',
+    SET_DEALS: 'HISTORY@SET_DEALS',
+    SET_ERROR: 'HISTORY@SET_ERROR',
+};

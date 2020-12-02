@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700&display=swap');
+
+
+html,body {
+    height: 100%;
+}
+
+body {
+    font-family: var(--font-openSans);
+    font-weight: var(--font-normal);
+    background: var(--color-mercury);
+    
+    #__next {
+        height: 100%;
+    }
+}
+
+input {
+    font-family: var(--font-openSans);
+    font-weight: var(--font-normal);
+}

@@ -1,0 +1,72 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:react/recommended",
+      "plugin:jsdoc/recommended",
+      "prettier/@typescript-eslint",
+      "plugin:prettier/recommended",
+    ],
+    "rules": {
+      "prettier/prettier": "error",
+      "comma-dangle": 0,
+      "max-lines": ["error", {
+        "skipComments": true
+      }],
+      "no-trailing-spaces": "off",
+      "@typescript-eslint/explicit-function-return-type": "error",
+      "@typescript-eslint/explicit-member-accessibility": "off",
+      "@typescript-eslint/naming-convention": [
+        "error",
+        { "selector": ["variable"], "format": ["camelCase", "PascalCase", "UPPER_CASE"] }
+      ],
+      "jsdoc/valid-types": "error",
+      "jsdoc/no-undefined-types": "off",
+      "no-console": ["error", {"allow": ["error"]}],
+      "require-jsdoc": ["error", {
+        "require": {
+            "FunctionDeclaration": true,
+            "MethodDefinition": true,
+            "ClassDeclaration": true,
+            "ArrowFunctionExpression": true,
+            "FunctionExpression": true
+        }
+      }],
+      "cypress/no-assigning-return-values": "error",
+      "cypress/no-unnecessary-waiting": "error",
+      "cypress/assertion-before-screenshot": "warn"
+    },
+    "overrides": [
+      {
+        "files": ["**/__tests__/**/*"],
+        "rules": {
+          "max-lines": "off",
+          "max-nested-callbacks": "off",
+          "max-statements": "off",
+          "@typescript-eslint/no-explicit-any": "off"
+        }
+      },    
+    ],
+    "settings": {
+      "import/resolver": {
+        "webpack": {
+          "config": "webpack.config.js"
+        }
+      },
+      "react": {
+        "version": "detect"
+      }
+    },
+    "parserOptions":  {
+      "ecmaVersion":  2018,
+      "sourceType":  "module"
+    },
+    "plugins": ["jsdoc", "prettier"],
+    "env": {
+      "node": true,
+      "browser": true,
+      "es6": true,
+    }
+  }
+  

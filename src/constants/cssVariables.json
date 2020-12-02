@@ -1,0 +1,19 @@
+{
+    "--color-jacksons-purple": "#1A237E",
+    "--color-mercury": "#E1E1E1",
+    "--color-white": "#fff",
+    "--color-black": "#000",
+    "--color-governor-bay": "#232FA9",
+    "--color-blue-zodiac": "#111755",
+    "--color-persian-red": "#D32F2F",
+
+    "--font-light": "300",
+    "--font-normal": "400",
+    "--font-bold": "700",
+
+    "--font-openSans": "'Open Sans', sans-serif",
+
+    "custom-media": {
+        "--medium": "(max-width: 1124px)"
+    }
+}
