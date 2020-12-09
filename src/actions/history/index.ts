@@ -64,7 +64,7 @@ export const fetchHistory = (): FetchHistoryPromise => {
         type: HISTORY.FETCH,
         payload: request({
             method: 'POST',
-            url: `http://130.211.109.15/api.php`,
+            url: `api.php`,
             data: {
                 action: 'history',
             },

@@ -1,9 +1,14 @@
 import App from 'next/app';
-import {wrapper, SagaStore} from 'libs/configureStore';
+import axios from 'axios';
 import {END} from 'redux-saga';
+
+import {wrapper, SagaStore} from 'libs/configureStore';
 
 import 'sanitize.css';
 import 'css/styles.css';
+
+// Default base url for all api calls (Just use 'users' instead of 'https://api.example.com/users')
+axios.defaults.baseURL = process.env.API_URL;
 
 /**
  * Main component for all pages

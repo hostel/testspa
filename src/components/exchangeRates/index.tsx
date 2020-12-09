@@ -76,7 +76,7 @@ export const ExchangeRates = React.memo(
                 ) : (
                     <React.Fragment>
                         {error ? (
-                            <WrapError>{error}</WrapError>
+                            <WrapError>Что-то пошло не так</WrapError>
                         ) : (
                             <Content>
                                 {assets.map((item: ModifiedAsset) => (

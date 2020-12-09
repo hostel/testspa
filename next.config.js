@@ -1,3 +1,4 @@
+require('dotenv').config();
 const withSourceMaps = require('@zeit/next-source-maps')();
 
 const nextConfig = {
@@ -49,6 +50,9 @@ const nextConfig = {
                 },
             ];
         },
+    },
+    env: {
+        API_URL: process.env.API_URL,
     },
 };
 

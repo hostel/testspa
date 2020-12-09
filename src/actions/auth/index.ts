@@ -45,7 +45,7 @@ export const sendAuth = (data: SendAuthParams): SendAuthPromise => {
         type: AUTH.SEND,
         payload: request({
             method: 'POST',
-            url: `http://130.211.109.15/api.php`,
+            url: `api.php`,
             data: {
                 action: 'login',
                 ...data,

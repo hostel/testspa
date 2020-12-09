@@ -58,7 +58,7 @@ export const fetchQuotes = (): FetchQuotesPromise => {
         type: QUOTES.FETCH,
         payload: request({
             method: 'POST',
-            url: `http://130.211.109.15/api.php`,
+            url: `api.php`,
             data: {
                 action: 'quote',
             },

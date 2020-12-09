@@ -9,6 +9,7 @@ import {Loader} from 'components/loader';
 import {HISTORY_COLUMNS} from 'constants/history';
 import {Pagination} from 'components/pagination';
 import {usePagination} from 'components/pagination/hooks';
+import {getSortedDeals} from 'selectors/deals';
 
 const Wrap = styled('div')`
     background: var(--color-white);
@@ -39,7 +40,11 @@ const Content = styled(GridContent)`
  * @param {React.ReactElement} - element
  */
 export const History = (): React.ReactElement => {
-    const {deals, isLoading, error} = useSelector(({history}: {history: HistoryStore}) => history);
+    const {deals, isLoading, error} = useSelector((state) => ({
+        deals: getSortedDeals(state),
+        isLoading: state.history.isLoading,
+        error: state.history.error,
+    }));
     const dispatch = useDispatch();
     const {next, prev, jump, currentData, currentPage, maxPage} = usePagination(deals, 10);
 
@@ -59,7 +64,7 @@ export const History = (): React.ReactElement => {
             ) : (
                 <React.Fragment>
                     {error ? (
-                        <WrapError>{error}</WrapError>
+                        <WrapError>Что-то пошло не так</WrapError>
                     ) : (
                         <React.Fragment>
                             <Content>

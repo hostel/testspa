@@ -4,7 +4,7 @@ import {ActionType} from 'redux-promise-middleware';
 
 import {setError, setDeals, FetchHistoryResponse} from 'actions/history';
 import {HISTORY} from 'constants/actions/history';
-import {getSortedDeals} from './utils';
+import {getSortedDeals} from '../../selectors/deals/utils';
 
 /**
  * Saga for set error or set upgrade deals
@@ -18,8 +18,7 @@ function* setUpgradeDeals({payload}: FetchHistoryResponse): SagaIterator {
         const setErrorAction = yield call(setError, data.error);
         yield put(setErrorAction);
     } else {
-        const deals = yield call(getSortedDeals, data.deals);
-        const setDealsAction = yield call(setDeals, deals);
+        const setDealsAction = yield call(setDeals, data.deals);
         yield put(setDealsAction);
     }
 }

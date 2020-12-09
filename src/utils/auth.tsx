@@ -1,6 +1,7 @@
 import React from 'react';
 import {NextPageContext, NextComponentType} from 'next';
 import nextCookie from 'next-cookies';
+import {PSEUDO_TOKEN} from 'constants/auth';
 
 export interface Props {
     [key: string]: unknown | string | number | boolean;
@@ -27,7 +28,7 @@ export const withAuthSync = (WrappedComponent: NextComponentType): WrappedCompon
     const Wrapper = (props: Props): React.ReactElement => <WrappedComponent {...props} />;
 
     Wrapper.getInitialProps = async (ctx: NextPageContext): Promise<Props> => {
-        const token = nextCookie(ctx)['token'];
+        const token = nextCookie(ctx)[PSEUDO_TOKEN];
 
         if (ctx.req && ctx.req.url !== '/' && !token) {
             ctx.res.writeHead(302, {Location: '/'});

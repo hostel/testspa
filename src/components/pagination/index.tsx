@@ -80,22 +80,33 @@ export const Pagination: React.FunctionComponent<Props> = ({
     currentPage,
 }: Props): React.ReactElement => {
     const [page, setPage] = useState(currentPage);
+
+    /**
+     * onChange number page
+     *
+     * @param {React.ChangeEvent<HTMLInputElement>} event - event from input
+     */
+    const onChange = ({target: {value}}: React.ChangeEvent<HTMLInputElement>): void => {
+        const replacedStr: string = value.replace(/\D/g, '');
+        setPage(Number(replacedStr));
+    };
+
+    /**
+     * Jump to page
+     *
+     * @param {React.FocusEvent<HTMLInputElement>} event - event from input
+     */
+    const onBlur = ({target: {value}}: React.FocusEvent<HTMLInputElement>): void => {
+        jump(Number(value));
+    };
+
     return (
         <Wrap>
             <PrevButton onClick={prev} title="prev page" disabled={currentPage === 1}>
                 <Arrow />
             </PrevButton>
             <Pages>
-                <Input
-                    value={page}
-                    onBlur={({target: {value}}) => {
-                        jump(Number(value));
-                    }}
-                    onChange={({target: {value}}) => {
-                        const replacedStr: string = value.replace(/\D/g, '');
-                        setPage(Number(replacedStr));
-                    }}
-                />
+                <Input value={page} onBlur={onBlur} onChange={onChange} />
                 /&nbsp;{maxPage}
             </Pages>
             <Button onClick={next} title="next page" disabled={currentPage === maxPage}>

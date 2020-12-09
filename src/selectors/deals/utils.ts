@@ -1,5 +1,10 @@
 import {IDeal, FormatedSortedDeal} from 'actions/history';
 
+const MAX_ITEMS_LIST = 10;
+const MAX_ASSET_PER_LIST = 2;
+const MAX_NEGATIVE_PROFIT = 2;
+const MAX_PROFIT_MORE_100 = 2;
+
 /**
  * Get formated date for deal
  *
@@ -27,7 +32,14 @@ const getFormatedDate = (date: Date): string => {
  * @param {IDeal[]} deals - array of deals
  * @returns {FormatedSortedDeal[]} - sorted deals
  */
-export const getSortedDeals = (deals: IDeal[]): FormatedSortedDeal[] => {
+export const sortingDeals = (deals: IDeal[]): FormatedSortedDeal[] => {
+    const counters = {
+        negativeProfit: 0,
+        profitMore100: 0,
+        assets: {},
+        lengthArr: 0,
+    };
+
     const sortedDealsByFinishDate = deals.sort((a, b) => {
         const aDate: any = new Date(a.finishDate);
         const bDate: any = new Date(b.finishDate);
@@ -42,59 +54,58 @@ export const getSortedDeals = (deals: IDeal[]): FormatedSortedDeal[] => {
         profit: Number(item.profit),
     }));
 
-    let arr = [];
+    const result = dealsWithFormatedDates.reduce(
+        (acc, deal) => {
+            const currentTen = acc.length === 0 ? acc[0] : acc[acc.length - 1];
 
-    const sortingDeals = (deals: FormatedSortedDeal[]) => {
-        const result = [];
-        const others = [];
-        const counters = {
-            negativeProfit: 0,
-            profitMore100: 0,
-            assets: {},
-            lengthArr: 0,
-        };
-
-        for (let deal of deals) {
             if (!counters.assets[deal.asset]) {
                 counters.assets[deal.asset] = 0;
             }
 
-            if (counters.assets[deal.asset] < 2 && counters.lengthArr < 10) {
-                if (deal.profit < 0 && counters.negativeProfit < 2) {
-                    result.push(deal);
-                    counters.negativeProfit++;
+            if (
+                counters.assets[deal.asset] < MAX_ASSET_PER_LIST &&
+                counters.lengthArr < MAX_ITEMS_LIST
+            ) {
+                if (deal.profit < 0 && counters.negativeProfit < MAX_NEGATIVE_PROFIT) {
+                    currentTen.push(deal);
                     counters.assets[deal.asset]++;
+                    counters.negativeProfit++;
                     counters.lengthArr++;
                 }
 
-                if (deal.profit > 100 && counters.profitMore100 < 2) {
-                    result.push(deal);
-                    counters.profitMore100++;
+                if (deal.profit > 100 && counters.profitMore100 < MAX_PROFIT_MORE_100) {
+                    currentTen.push(deal);
                     counters.assets[deal.asset]++;
+                    counters.profitMore100++;
                     counters.lengthArr++;
                 }
 
                 if (deal.profit > 0 && deal.profit < 100) {
-                    result.push(deal);
+                    currentTen.push(deal);
                     counters.assets[deal.asset]++;
                     counters.lengthArr++;
                 }
             }
 
-            if (counters.lengthArr >= 10) {
-                others.push(deal);
-                counters.lengthArr++;
+            if (currentTen.length === MAX_ITEMS_LIST) {
+                counters.assets = {};
+                counters.negativeProfit = 0;
+                counters.profitMore100 = 0;
+                counters.lengthArr = 0;
+
+                return [...acc, []];
             }
-        }
 
-        if (result.length && result.length === 10) arr = [...arr, ...result];
+            return acc;
+        },
+        [[]],
+    );
 
-        if (others.length !== deals.length) {
-            sortingDeals(others);
-        }
-    };
+    if (result.length > 0 && result[result.length - 1].length < 10) {
+        result.pop();
+    } else {
+        return [];
+    }
 
-    sortingDeals(dealsWithFormatedDates);
-
-    return arr;
+    return result;
 };

@@ -7,6 +7,7 @@ import {Header} from 'components/header';
 import {Tabs} from 'components/tabs';
 import {withAuthSync} from 'utils/auth';
 import {setLogged} from 'actions/auth';
+import {PSEUDO_TOKEN} from 'constants/auth';
 
 const Wrap = styled('div')`
     display: flex;
@@ -41,7 +42,7 @@ const MainPage = () => (
 
 MainPage.getInitialProps = (ctx) => {
     const {store} = ctx;
-    const token = nextCookie(ctx)['token'];
+    const token = nextCookie(ctx)[PSEUDO_TOKEN];
 
     if (token) {
         store.dispatch(setLogged(true));
